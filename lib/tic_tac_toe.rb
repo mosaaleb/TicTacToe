@@ -1,7 +1,25 @@
 
 class TicTacToe
   attr_accessor :board
-@@turn = 0
+  @@turn = 0
+  
+  WINNING_COMBINATION = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+
+  [0, 3, 6],
+  [1, 2, 7],
+  [2, 5, 8],
+
+  [0, 4, 8],
+  [2, 4, 6]
+]
+
+
+  def turn
+    @@turn
+  end
 
  def initialize
   @board = ["_", "_", "_", "_", "_", "_", "_", "_", "_"]
@@ -9,11 +27,11 @@ class TicTacToe
  end
   def display_board
 
-  puts "    #{board[0]}     |     #{board[1]}     |     #{board[2]}    "
+  puts "    #{@board[0]}     |     #{@board[1]}     |     #{@board[2]}    "
   puts "-----------------------------------"
-  puts "    #{board[3]}     |     #{board[4]}     |     #{board[5]}    "
+  puts "    #{@board[3]}     |     #{@board[4]}     |     #{@board[5]}    "
   puts "-----------------------------------"
-  puts "    #{board[6]}     |     #{board[7]}     |     #{board[8]}    "
+  puts "    #{@board[6]}     |     #{@board[7]}     |     #{@board[8]}    "
   puts "-----------------------------------"
   end
 
@@ -26,33 +44,48 @@ class TicTacToe
   end
 
   def ask_player
-  puts "input a position from 1 to 9"
-  @position = gets.chomp.to_i - 1
-  if @position > 9
-    puts "the number has to be between 1 - 9"
+  puts "input a position from 0 to 8"
+  @position = gets.chomp.to_i
+  if @position > 8 || @board[@position] != '_'
+    puts "Oho, Don't cheat"
     ask_player
   end
-  @@turn += 1
   end
 
   def edit_board
-    if 
-    @board[@position] = @sign
+    if @@turn % 2 == 0
+      char_play = 'X'
+    elsif
+      char_play = 'O'
+    end
+    @board[@position] = char_play
     display_board
+    @@turn += 1
+    #return self.winner_player if game_won?
+    p  game_won? 
   end
 
-  def player_turn
-    if @@turn % 2 == 0
-      puts "player 2 turn"
-    else
-      puts "player 1 turn"
+
+  def game_won?
+    WINNING_COMBINATION.each do |item|
+      # 0, 1, 2
+      first_index = item[0]
+      second_index = item[1]
+      third_index = item[2]
+      return true if @board[first_index] == @board[second_index] && @board[second_index] == @board[third_index] && @board[first_index] != '_'
     end
+    return false
   end
 
 end
 
 new_game = TicTacToe.new
 new_game.welcome
-new_game.ask_player
-new_game.edit_board
+
+
+while new_game.turn < 9
+  new_game.ask_player
+  new_game.edit_board
+end
+
 new_game.end_game

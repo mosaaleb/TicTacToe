@@ -1,34 +1,27 @@
 require_relative 'players'
 # Tic-Tac-Toe executable file
 class TicTacToe
-  attr_accessor :board
+  WINNING_COMBINATION = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
+    [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+  ].freeze
+
   def initialize
     @board = %w[_ _ _ _ _ _ _ _ _]
     @turn = 0
+    puts 'Get ready to play TIC-TAC_TOE'
   end
 
-  WINNING_COMBINATION = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ].freeze
-
   def generate_players
-    puts 'Enter the first player name'
+    puts 'Enter the first player and the second player names'
     name1 = gets.chomp
-    puts 'Enter the second player name'
     name2 = gets.chomp
-    # Player class objects
     @player1 = Player.new(name1, 0)
     @player2 = Player.new(name2, 0)
   end
 
   def play
+    initialize
     while @turn < 9
       ask_player
       edit_board
@@ -36,24 +29,19 @@ class TicTacToe
     end
   end
 
-  def welcome
-    puts 'Get ready to play TIC-TAC_TOE'
-  end
-
   def end_game
     puts 'Thank you for playing TIC_TAC_TOE'
     exit
   end
 
-  private
-
   def display_board
-    puts "    #{@board[0]}     |     #{@board[1]}     |     #{@board[2]}    "
-    puts '-----------------------------------'
-    puts "    #{@board[3]}     |     #{@board[4]}     |     #{@board[5]}    "
-    puts '-----------------------------------'
-    puts "    #{@board[6]}     |     #{@board[7]}     |     #{@board[8]}    "
-    puts '-----------------------------------'
+    i = 0
+    puts '--------------------------'
+    while i < @board.length - 1
+      puts "|   #{@board[i]}   |   #{@board[i + 1]}   |   #{@board[i + 2]}    |"
+      puts '--------------------------'
+      i += 3
+    end
   end
 
   def ask_player
@@ -69,10 +57,7 @@ class TicTacToe
 
   def edit_board
     @char_play = ''
-    if @turn.even?
-      @char_play = 'X'
-    elsif (@char_play = 'O')
-    end
+    @char_play = @turn.even? ? 'X' : 'O'
     @board[@position] = @char_play
     display_board
     @turn += 1
@@ -81,18 +66,11 @@ class TicTacToe
 
   def game_won?
     WINNING_COMBINATION.each do |item|
-      @first_index = item[0]
-      @second_index = item[1]
-      @third_index = item[2]
-      return true if cool?
+      return true if @board[item[0]] == @board[item[1]] &&
+                     @board[item[1]] == @board[item[2]] &&
+                     @board[item[0]] != '_'
     end
     false
-  end
-
-  def cool?
-    @board[@first_index] == @board[@second_index] &&
-      @board[@second_index] == @board[@third_index] &&
-      @board[@first_index] != '_'
   end
 
   def winner_player(char_winner_indicator)
@@ -110,13 +88,11 @@ class TicTacToe
     print_score
     puts 'Do you want to play again? Type Y or N'
     answer = gets.chomp.downcase
-    sign(answer)
+    get_answer(answer)
   end
 
-  def sign(answer)
-    if answer == 'y'
-      initialize
-      play
+  def get_answer(answer)
+    if answer == 'y' then play
     elsif answer == 'n'
       end_game
     else
@@ -136,13 +112,6 @@ class TicTacToe
 
   def print_score
     print "#{@player1.name} : #{@player1.score} VS "
-    print "#{@player2.name} : #{@player2.score}"
-    print "\n"
+    print "#{@player2.name} : #{@player2.score} \n"
   end
 end
-
-new_game = TicTacToe.new
-new_game.welcome
-sleep(2)
-new_game.generate_players
-new_game.play

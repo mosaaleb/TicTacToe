@@ -1,5 +1,11 @@
+require_relative 'players'
+# Tic-Tac-Toe executable file
 class TicTacToe
   attr_accessor :board
+  def initialize
+    @board = %w[_ _ _ _ _ _ _ _ _]
+    @turn = 0
+  end
 
   WINNING_COMBINATION = [
     [0, 1, 2],
@@ -18,8 +24,8 @@ class TicTacToe
     puts 'Enter the second player name'
     name2 = gets.chomp
     # Player class objects
-    @@player1 = Player.new(name1, 0)
-    @@player2 = Player.new(name2, 0)
+    @player1 = Player.new(name1, 0)
+    @player2 = Player.new(name2, 0)
   end
 
   def play
@@ -28,22 +34,6 @@ class TicTacToe
       edit_board
       draw if game_full?
     end
-  end
-
-  private 
-
-  def initialize
-    @board = %w[_ _ _ _ _ _ _ _ _]
-    @turn = 0
-  end
-
-  def display_board
-    puts "    #{@board[0]}     |     #{@board[1]}     |     #{@board[2]}    "
-    puts '-----------------------------------'
-    puts "    #{@board[3]}     |     #{@board[4]}     |     #{@board[5]}    "
-    puts '-----------------------------------'
-    puts "    #{@board[6]}     |     #{@board[7]}     |     #{@board[8]}    "
-    puts '-----------------------------------'
   end
 
   def welcome
@@ -55,12 +45,26 @@ class TicTacToe
     exit
   end
 
+  private
+
+  def display_board
+    puts "    #{@board[0]}     |     #{@board[1]}     |     #{@board[2]}    "
+    puts '-----------------------------------'
+    puts "    #{@board[3]}     |     #{@board[4]}     |     #{@board[5]}    "
+    puts '-----------------------------------'
+    puts "    #{@board[6]}     |     #{@board[7]}     |     #{@board[8]}    "
+    puts '-----------------------------------'
+  end
+
   def ask_player
     puts 'input a position from 0 to 8'
     @position = gets.chomp.to_i
-    puts "Oho, Don't cheat" if @position > 8 || @board[@position] != '_'
-      ask_player
-    end
+    invalid_pos if @position > 8 || @board[@position] != '_'
+  end
+
+  def invalid_pos
+    puts 'invalid position'
+    ask_player
   end
 
   def edit_board
@@ -77,23 +81,27 @@ class TicTacToe
 
   def game_won?
     WINNING_COMBINATION.each do |item|
-      first_index = item[0]
-      second_index = item[1]
-      third_index = item[2]
-      if @board[first_index] == @board[second_index] && @board[second_index] == @board[third_index] && @board[first_index] != '_'
-        return true
-      end
+      @first_index = item[0]
+      @second_index = item[1]
+      @third_index = item[2]
+      return true if cool?
     end
     false
   end
 
+  def cool?
+    @board[@first_index] == @board[@second_index] &&
+      @board[@second_index] == @board[@third_index] &&
+      @board[@first_index] != '_'
+  end
+
   def winner_player(char_winner_indicator)
     if char_winner_indicator == 'X'
-      puts "#{@@player1.name} wins"
-      @@player1.score += 1
+      puts "#{@player1.name} wins"
+      @player1.score += 1
     else
-      puts "#{@@player2.name} wins"
-      @@player2.score += 1
+      puts "#{@player2.name} wins"
+      @player2.score += 1
     end
     reset_game
   end
@@ -102,6 +110,10 @@ class TicTacToe
     print_score
     puts 'Do you want to play again? Type Y or N'
     answer = gets.chomp.downcase
+    sign(answer)
+  end
+
+  def sign(answer)
     if answer == 'y'
       initialize
       play
@@ -123,19 +135,14 @@ class TicTacToe
   end
 
   def print_score
-    puts "#{@@player1.name} : #{@@player1.score} VS #{@@player2.name} : #{@@player2.score}"
-  end
-end
-
-class Player
-  attr_accessor :score
-  attr_reader :name
-  def initialize(name, score)
-    @name = name
-    @score = score
+    print "#{@player1.name} : #{@player1.score} VS "
+    print "#{@player2.name} : #{@player2.score}"
+    print "\n"
   end
 end
 
 new_game = TicTacToe.new
+new_game.welcome
+sleep(2)
 new_game.generate_players
 new_game.play

@@ -1,0 +1,10 @@
+
+linters:
+  rubocop:
+    display_cop_names: true
+    Metrics/BlockLength:
+      ExcludedMethods: ['describe', 'context']
+       Exclude:
+        - 'Rakefile'
+        - '**/*.rake'
+        - 'test/**/*.rb'

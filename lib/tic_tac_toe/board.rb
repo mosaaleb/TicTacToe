@@ -22,4 +22,10 @@ class Board
   def cell_valid?(num)
     @grid[num] == ' '
   end
+
+  def set_cell(position, symbol)
+    @grid[position] = symbol
+  end
+
+  
 end

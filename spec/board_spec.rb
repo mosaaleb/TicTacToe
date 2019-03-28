@@ -4,7 +4,7 @@ describe Board do
   describe '#initialize' do
     board = Board.new
     it 'creates an instance of board class with new array' do
-      expect(board.grid).to eq(Array.new(9, ' '))
+      expect(board.grid).to eq(Array.new(9, '_'))
     end
   end
 

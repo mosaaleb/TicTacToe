@@ -2,7 +2,7 @@
 class Board
   attr_accessor :grid
   def initialize
-    @grid = Array.new(9, ' ')
+    @grid = Array.new(9, '_')
   end
 
   def display_board
@@ -16,16 +16,18 @@ class Board
   end
 
   def board_full?
-    return false if @grid.include? ' '
+    return false if @grid.include? '_'
   end
 
   def cell_valid?(num)
-    @grid[num] == ' '
+    @grid[num] == '_'
+  end
+
+  def get_cell(position)
+    @grid[position]
   end
 
   def set_cell(position, symbol)
     @grid[position] = symbol
   end
-
-  
 end

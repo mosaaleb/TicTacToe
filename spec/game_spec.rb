@@ -10,10 +10,27 @@ describe Game do
     end
   end
 
-  describe '#print_score' do
-    it 'should print scores' do
-      expect(game.print_score).to output("#{@st_player.name}:#{@st_player.score}
-        \nVS\n#{@nd_player.name}:#{@nd_player.score}\n").to_stdout
+  # describe '#print_score' do
+  #   it 'should print scores' do
+  #     expect(game.print_score).to output("#{@st_player.name}:#{@st_player.score}
+  #       \nVS\n#{@nd_player.name}:#{@nd_player.score}\n").to_stdout
+  #   end
+  # end
+
+  describe '#game_won?' do
+    it 'should just return boolean true or false' do
+      expect(game.game_won?).to eq(true).or eq(false)
+    end
+    it 'should return ture if a match found' do
+      game.board.set_cell(0, 'X')
+      game.board.set_cell(1, 'X')
+      game.board.set_cell(2, 'X')
+      expect(game.game_won?).to eq(true)
+    end
+    it 'should return false if not match found' do
+      game.board.set_cell(0, 'O')
+      game.board.set_cell(1, 'X')
+      expect(game.game_won?).to eq(false)
     end
   end
 end

@@ -10,13 +10,6 @@ describe Game do
     end
   end
 
-  # describe '#print_score' do
-  #   it 'should print scores' do
-  #     expect(game.print_score).to output("#{@st_player.name}:#{@st_player.score}
-  #       \nVS\n#{@nd_player.name}:#{@nd_player.score}\n").to_stdout
-  #   end
-  # end
-
   describe '#game_won?' do
     it 'should just return boolean true or false' do
       expect(game.game_won?).to eq(true).or eq(false)
@@ -34,14 +27,32 @@ describe Game do
     end
   end
 
+  describe '#current_player' do
+    it 'return first player' do
+      game.turn = 0
+      expect(game.set_current_player).to eq(game.st_player)
+    end
+    it 'return second player' do
+      game.turn = 1
+      expect(game.set_current_player).to eq(game.nd_player)
+    end
+  end
+
   describe '#winner_player' do
-    it 'should return winner name' do
-      game.turn = 3
+    it 'should return the first player name' do
+      game.current_player = game.st_player
+      expect(game.winner_player).to eq(game.st_player.name)
+    end
+    it 'should return the second player name' do
+      game.current_player = game.nd_player
       expect(game.winner_player).to eq(game.nd_player.name)
     end
-    it 'should return the first player name' do
-      game.turn = 2
-      expect(game.winner_player).to eq(game.st_player.name)
+  end
+
+  describe '#play' do
+    it 'should update the cell of the position given' do
+      game.board.set_cell(3, 'X')
+      expect(game.play)
     end
   end
 end

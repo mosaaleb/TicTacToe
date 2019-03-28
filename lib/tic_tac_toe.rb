@@ -1,21 +1,16 @@
-require "tic_tac_toe/version"
+require './tic_tac_toe/game'
+require './tic_tac_toe/player'
+require './tic_tac_toe/board'
+# module TicTacToe
+#   class Error < StandardError; end
+#   # Your code goes here...
+# end
 
-module TicTacToe
-  class Error < StandardError; end
-  # Your code goes here...
+game = Game.new
+
+input = 'y'
+while input == 'y'
+  game.play
+  puts 'Do you want to play again? Enter y or n'
+  input = gets.chomp
 end
-
-
-# player(:name, :score, :symbol, :current?)
-
-
-# board.create
-# players.create
-# while 
-# game.play
-  # board.show
-  # board.choose_position
-  # player_won? == > board_won? break
-  # player.print
-  # player.switch
-# board_draw

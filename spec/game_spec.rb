@@ -33,4 +33,15 @@ describe Game do
       expect(game.game_won?).to eq(false)
     end
   end
+
+  describe '#winner_player' do
+    it 'should return winner name' do
+      game.turn = 3
+      expect(game.winner_player).to eq(game.nd_player.name)
+    end
+    it 'should return the first player name' do
+      game.turn = 2
+      expect(game.winner_player).to eq(game.st_player.name)
+    end
+  end
 end

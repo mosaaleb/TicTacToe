@@ -5,13 +5,14 @@ require_relative 'board'
 class Game
   WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
                          [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
-  attr_accessor :board, :st_player, :nd_player
+  attr_accessor :board, :st_player, :nd_player, :turn
   def initialize
     @board = Board.new
     puts 'Enter first player name'
     @st_player = Player.new(gets.chomp)
     puts 'Enter second player name'
     @nd_player = Player.new(gets.chomp)
+    @turn = 0
   end
 
   def print_score
@@ -31,4 +32,16 @@ class Game
     end
     false
   end
+
+  def winner_player
+    if @turn.even?
+      @st_player.name
+    else
+      @nd_player.name
+    end
+  end
+
+  # def play
+
+  # end
 end

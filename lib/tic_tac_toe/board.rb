@@ -17,6 +17,8 @@ class Board
 
   def board_full?
     return false if @grid.include? '_'
+
+    true
   end
 
   def cell_valid?(num)
@@ -29,5 +31,9 @@ class Board
 
   def set_cell(position, symbol)
     @grid[position] = symbol
+  end
+
+  def reset_board
+    @grid = Array.new(9, '_')
   end
 end

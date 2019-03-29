@@ -19,8 +19,11 @@ class Game
   end
 
   def print_score
-    puts "#{@st_player.name}:#{@st_player.score}
-    \nVS\n#{@nd_player.name}:#{@nd_player.score}\n"
+    puts "==========="
+    puts "#{@st_player.name}:#{@st_player.score}"
+    puts '  VS  '
+    puts "#{@nd_player.name}:#{@nd_player.score}"
+    puts "==========="
   end
 
   def game_draw?
@@ -36,8 +39,12 @@ class Game
     false
   end
 
-  def set_current_player
-    @current_player = @turn.even? ? @st_player : @nd_player
+  def swap_players
+    if @current_player == @st_player
+      @current_player = @nd_player
+    else
+      @current_player = @st_player
+    end
   end
 
   def winner_player
@@ -51,14 +58,24 @@ def play
   while i < 9
     puts "#{@current_player.name} Please select a number"
     number = gets.chomp.to_i
-    if @board.cell_valid?(number)
-      @board.set_cell(number, @current_player.sym)
+    until @board.cell_valid?(number)
+      puts 'cell already taken, please input symbol in valid cell'
+      number = gets.chomp.to_i
     end
-    set_current_player
+    @board.set_cell(number, @current_player.sym)
     @board.display_board
-    puts "#{winner_player} is the winner #{current_player.name}" if game_won?
-    set_current_player
-    puts 'Sorry, drawn game' if @board.board_full? && game_draw?
+    if game_won?
+      puts "#{winner_player} is the winner"
+      print_score
+      break
+    else
+      swap_players
+      if @board.board_full?
+        puts 'Sorry, drawn game'
+        print_score
+        break
+      end
+    end
   end
 end
 

@@ -9,9 +9,14 @@ describe Board do
   end
 
   describe '#board_full?' do
-    board = Board.new
+    our_board = Board.new
     it 'returns a boolean value if board is full or not' do
-      expect(board.board_full?).to eq(true).or eq(false)
+      expect(our_board.board_full?).to eq(true).or eq(false)
+    end
+    it 'returns true if board full' do
+      scnd_board = Board.new
+      scnd_board.grid.fill('X')
+      expect(scnd_board.board_full?).to eq(true)
     end
   end
 

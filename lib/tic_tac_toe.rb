@@ -10,6 +10,7 @@ game = Game.new
 
 input = 'y'
 while input == 'y'
+  game.board.reset_board
   game.play
   puts 'Do you want to play again? Enter y or n'
   input = gets.chomp

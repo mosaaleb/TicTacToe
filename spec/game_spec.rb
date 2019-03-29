@@ -27,17 +27,6 @@ describe Game do
     end
   end
 
-  describe '#current_player' do
-    it 'return first player' do
-      game.turn = 0
-      expect(game.set_current_player).to eq(game.st_player)
-    end
-    it 'return second player' do
-      game.turn = 1
-      expect(game.set_current_player).to eq(game.nd_player)
-    end
-  end
-
   describe '#winner_player' do
     it 'should return the first player name' do
       game.current_player = game.st_player
@@ -49,10 +38,11 @@ describe Game do
     end
   end
 
-  describe '#play' do
-    it 'should update the cell of the position given' do
-      game.board.set_cell(3, 'X')
-      expect(game.play)
+  describe '#swap_players' do
+    it 'should change player turns' do
+      game.current_player = game.st_player
+      game.swap_players
+      expect(game.current_player).to eq(game.nd_player)
     end
   end
 end

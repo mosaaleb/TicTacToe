@@ -49,14 +49,20 @@ class Game
   end
 
   def set_position
-    puts "#{@current_player.name} Please select a position"
+    puts "#{@current_player.name}, please select a position"
     position = gets.chomp.to_i
-    unless board.cell_valid?(position)
-      puts "Don't cheat #{current_player.name}"
-      set_position
-    end
+    position = pos_checker(position)
     board.set_cell(position, @current_player.sym)
     board.display_board
+  end
+
+  def pos_checker(position)
+    until board.cell_valid?(position)
+      puts "Don't cheat #{current_player.name}"
+      puts "#{@current_player.name}, please select a position"
+      position = gets.chomp.to_i
+    end
+    position
   end
 
   def end_game?
@@ -68,4 +74,3 @@ class Game
     puts 'Game is drawn' if game_draw?
   end
 end
-

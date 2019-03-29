@@ -1,17 +1,40 @@
-require './tic_tac_toe/game'
-require './tic_tac_toe/player'
-require './tic_tac_toe/board'
-# module TicTacToe
-#   class Error < StandardError; end
-#   # Your code goes here...
-# end
+require_relative './tic_tac_toe/game'
+require_relative './tic_tac_toe/player'
+require_relative './tic_tac_toe/board'
 
-game = Game.new
+# TicTacTeo Class
+class TicTacToe
+  attr_accessor :game
 
-input = 'y'
-while input == 'y'
-  game.board.reset_board
-  game.play
-  puts 'Do you want to play again? Enter y or n'
-  input = gets.chomp
+  def initialize
+    @game = Game.new
+  end
+
+  def play_turn
+    game.board.reset_board
+    i = 0
+    while i < 9
+      game.set_position
+      if game.end_game?
+        game.print_game_result
+        break
+      end
+      game.swap_players
+    end
+  end
+
+  def get_answer(answer)
+    if answer == 'Y' then play_turn
+    elsif answer == 'N'
+      exit
+    else
+      get_answer(answer)
+    end
+  end
 end
+
+tic = TicTacToe.new
+
+tic.play_turn
+puts 'Do you want to play again? Y or N'
+tic.get_answer(gets.chomp.upcase)

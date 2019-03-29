@@ -5,7 +5,7 @@ require_relative 'board'
 class Game
   WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
                          [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
-  attr_accessor :board, :st_player, :nd_player, :turn, :current_player
+  attr_accessor :board, :st_player, :nd_player, :current_player
   def initialize
     @board = Board.new
     puts 'Enter first player name'
@@ -19,11 +19,11 @@ class Game
   end
 
   def print_score
-    puts "==========="
+    puts '==========='
     puts "#{@st_player.name}:#{@st_player.score}"
     puts '  VS  '
     puts "#{@nd_player.name}:#{@nd_player.score}"
-    puts "==========="
+    puts '==========='
   end
 
   def game_draw?
@@ -40,11 +40,7 @@ class Game
   end
 
   def swap_players
-    if @current_player == @st_player
-      @current_player = @nd_player
-    else
-      @current_player = @st_player
-    end
+    @current_player = @current_player == @st_player ? @nd_player : @st_player
   end
 
   def winner_player
@@ -52,35 +48,24 @@ class Game
     @current_player.name
   end
 
-  
-def play
-  i = 0
-  while i < 9
-    puts "#{@current_player.name} Please select a number"
-    number = gets.chomp.to_i
-    until @board.cell_valid?(number)
-      puts 'cell already taken, please input symbol in valid cell'
-      number = gets.chomp.to_i
+  def set_position
+    puts "#{@current_player.name} Please select a position"
+    position = gets.chomp.to_i
+    unless board.cell_valid?(position)
+      puts "Don't cheat #{current_player.name}"
+      set_position
     end
-    @board.set_cell(number, @current_player.sym)
-    @board.display_board
-    if game_won?
-      puts "#{winner_player} is the winner"
-      print_score
-      break
-    else
-      swap_players
-      if @board.board_full?
-        puts 'Sorry, drawn game'
-        print_score
-        break
-      end
-    end
+    board.set_cell(position, @current_player.sym)
+    board.display_board
+  end
+
+  def end_game?
+    game_won? || game_draw?
+  end
+
+  def print_game_result
+    puts "#{winner_player} Wins" if game_won?
+    puts 'Game is drawn' if game_draw?
   end
 end
-
-end
-
-
-
 

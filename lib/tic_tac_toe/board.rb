@@ -37,3 +37,13 @@ class Board
     @grid = Array.new(9, '_')
   end
 end
+
+def get_answer(answer)
+  if answer == 'y' then play
+  elsif answer == 'n'
+    end_game
+  else
+    puts 'invalid choice'
+    reset_game
+  end
+end

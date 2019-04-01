@@ -36,9 +36,14 @@ class TicTacToe
   end
 end
 
-tic = TicTacToe.new
-tic.play_turn
-while tic.keep_playing
-  puts 'Do you want to play again? Y or N'
-  tic.get_answer(gets.chomp.upcase)
+
+# down here run the program only if this
+# script is run from the command line
+if __FILE__ == $0
+  tic = TicTacToe.new
+  tic.play_turn
+  while tic.keep_playing
+    puts 'Do you want to play again? Y or N'
+    tic.get_answer(gets.chomp.upcase)
+  end
 end

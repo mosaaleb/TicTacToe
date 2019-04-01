@@ -2,7 +2,7 @@
 class Board
   attr_accessor :grid
   def initialize
-    @grid = Array.new(9, '_')
+    @grid = Array.new(9)
   end
 
   def display_board
@@ -16,13 +16,13 @@ class Board
   end
 
   def board_full?
-    return false if @grid.include? '_'
+    return false if grid.any?(&:nil?)
 
     true
   end
 
   def cell_valid?(num)
-    @grid[num] == '_'
+    @grid[num].nil?
   end
 
   def get_cell(position)
@@ -34,16 +34,16 @@ class Board
   end
 
   def reset_board
-    @grid = Array.new(9, '_')
+    @grid = Array.new(9)
   end
-end
 
-def get_answer(answer)
-  if answer == 'y' then play
-  elsif answer == 'n'
-    end_game
-  else
-    puts 'invalid choice'
-    reset_game
+  def get_answer(answer)
+    if answer == 'y' then play
+    elsif answer == 'n'
+      end_game
+    else
+      puts 'invalid choice'
+      reset_game
+    end
   end
 end

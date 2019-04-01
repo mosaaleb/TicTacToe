@@ -14,7 +14,7 @@ describe Game do
     it 'should just return boolean true or false' do
       expect(game.game_won?).to eq(true).or eq(false)
     end
-    it 'should return ture if a match found' do
+    it 'should return true if a match found' do
       game.board.set_cell(0, 'X')
       game.board.set_cell(1, 'X')
       game.board.set_cell(2, 'X')

@@ -9,4 +9,11 @@ describe TicTacToe do
       expect(test_game.game.board).not_to be_nil
     end
   end
+
+  describe '#get_answer(answer)' do
+    let(:index){['Y', 'N']}
+    it 'gets the players answer' do
+      expect()
+    end
+  end
 end

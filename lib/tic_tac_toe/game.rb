@@ -5,14 +5,18 @@ require_relative 'board'
 class Game
   WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
                          [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
-  attr_accessor :board, :st_player, :nd_player, :current_player
+  attr_reader :board, :st_player, :nd_player, :current_player
   def initialize
     @board = Board.new
+    @turns = 0
+    setup_players
+  end
+
+  def setup_players
     puts 'Enter first player name'
     @st_player = Player.new(gets.chomp)
     puts 'Enter second player name'
     @nd_player = Player.new(gets.chomp)
-    @turn = 0
     @current_player = @st_player
     @st_player.sym = 'X'
     @nd_player.sym = 'O'
@@ -34,7 +38,7 @@ class Game
     WINNING_COMBINATION.each do |item|
       return true if @board.get_cell(item[0]) == @board.get_cell(item[1]) &&
                      @board.get_cell(item[1]) == @board.get_cell(item[2]) &&
-                     @board.get_cell(item[0]) != '_'
+                     !@board.cell_valid?(item[0])
     end
     false
   end
@@ -72,5 +76,18 @@ class Game
   def print_game_result
     puts "#{winner_player} Wins" if game_won?
     puts 'Game is drawn' if game_draw?
+  end
+
+  def play_turn
+    board.reset_board
+    while @turns < 9
+      set_position
+      if end_game?
+        print_game_result
+        break
+      end
+      swap_players
+    end
+    print_score
   end
 end

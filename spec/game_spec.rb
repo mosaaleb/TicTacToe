@@ -53,14 +53,19 @@ describe Game do
   end
 
   describe '#end_game?' do
-    context 'should return a boolean value if game is drawn or won' do
+    context '#end_game' do
       let(:game) { described_class.new }
-      it 'returns true when game_won? is true' do
-        game = double(:game)
+      it 'returns true if game_won? is true' do
         allow(game).to receive(:game_won?).and_return(true)
-        allow(game).to receive(:game_draw?).and_return(false)
-        game.end_game?
         expect(game.end_game?).to eq(true)
+      end
+      it 'returns true if game_draw? is true' do
+        allow(game).to receive(:game_draw?).and_return(true)
+        expect(game.end_game?).to eq(true)
+      end
+      it 'returns false if game_draw? and game_won? are both false' do
+        allow(game).to receive(:game_won?).and_return(false)
+        expect(game.end_game?).to eq(false)
       end
     end
   end

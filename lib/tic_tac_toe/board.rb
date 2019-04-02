@@ -33,17 +33,30 @@ class Board
     @grid[position] = symbol
   end
 
-  def reset_board
-    @grid = Array.new(9)
+  def horizontal_match
+    3.times do |i|
+      return true if @grid[i] == @grid[i + 1] &&
+                     @grid[i + 1] == @grid[i + 2] && !@grid[i].nil?
+    end
+    false
   end
 
-  def get_answer(answer)
-    if answer == 'y' then play
-    elsif answer == 'n'
-      end_game
-    else
-      puts 'invalid choice'
-      reset_game
+  def vertical_match
+    3.times do |i|
+      return true if @grid[i] == @grid[i + 3] &&
+                     @grid[i + 3] == @grid[i + 6] && !grid[i].nil?
     end
+    false
+  end
+
+  def diagonal_match
+    return false if @grid[4].nil?
+
+    @grid[0] == @grid[4] && @grid[4] == @grid[8] ||
+      @grid[2] == @grid[4] && @grid[4] == @grid[6]
+  end
+
+  def reset_board
+    @grid = Array.new(9)
   end
 end

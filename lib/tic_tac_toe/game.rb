@@ -35,12 +35,7 @@ class Game
   end
 
   def game_won?
-    WINNING_COMBINATION.each do |item|
-      return true if @board.get_cell(item[0]) == @board.get_cell(item[1]) &&
-                     @board.get_cell(item[1]) == @board.get_cell(item[2]) &&
-                     !@board.cell_valid?(item[0])
-    end
-    false
+    board.vertical_match || board.horizontal_match || board.diagonal_match
   end
 
   def swap_players

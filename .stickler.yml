@@ -4,3 +4,6 @@ linters:
     display_cop_names: true
     Metrics/BlockLength:
       ExcludedMethods: ['describe', 'context']
+files:
+  ignore:
+    - 'spec/*.rb'

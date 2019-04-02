@@ -69,4 +69,21 @@ describe Game do
       end
     end
   end
+
+  describe '#game_draw?' do
+    let(:game) { described_class.new }
+    context 'should return boolean if board full and game not won' do
+      it 'returns false when either condition is false' do
+        allow(game.board).to receive(:board_full?).and_return(false)
+        allow(game).to receive(:game_won?).and_return(true)
+        expect(game.game_draw?).to eq(false)
+      end
+      it 'returns true when both conditions are true' do
+        allow(game.board).to receive(:board_full?).and_return(true)
+        # game_won? uses a '!' value
+        allow(game).to receive(:game_won?).and_return(false)
+        expect(game.game_draw?).to eq(true)
+      end
+    end
+  end
 end

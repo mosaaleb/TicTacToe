@@ -85,8 +85,26 @@ describe Game do
       end
     end
   end
-  describe '#set_position' do
-    let(:game) {described_class.new }
-    it 'should change baord values if position is '
 
+  describe '#set_position' do
+    let(:game) { described_class.new }
+    it 'sets cell position, if position is valid' do
+      position = 2
+      sym = 'X'
+      allow(game).to receive(:pos_checker).with(position).and_return(true)
+      allow(game.board).to receive(:set_cell).with(position, sym)
+      # game.board.set_cell(position, sym)
+      # expect(game.board).to have_received(:set_cell).with(position, sym).once
+      expect(game.board.get_cell(position)).to eq(sym)
+    end
+  end
+
+  describe '#pos_checker' do
+    let(:game) { described_class.new }
+    it 'checks if position is valid and returns it if true' do
+      position = 0
+      allow(game.board).to receive(:cell_valid?).with(position).and_return(true)
+      expect(game.pos_checker(position)).to eq(position)
+    end
+  end
 end

@@ -26,7 +26,7 @@ end
 # script is run from the command line
 if __FILE__ == $0
   tic = TicTacToe.new
-  tic.play_turn
+  tic.game.play_turn
   while tic.keep_playing
     puts 'Do you want to play again? Y or N'
     tic.get_answer(gets.chomp.upcase)

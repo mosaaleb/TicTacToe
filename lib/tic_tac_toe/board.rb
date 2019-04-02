@@ -36,14 +36,4 @@ class Board
   def reset_board
     @grid = Array.new(9)
   end
-
-  def get_answer(answer)
-    if answer == 'y' then play
-    elsif answer == 'n'
-      end_game
-    else
-      puts 'invalid choice'
-      reset_game
-    end
-  end
 end

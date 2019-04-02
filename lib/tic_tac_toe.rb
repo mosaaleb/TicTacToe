@@ -21,10 +21,9 @@ class TicTacToe
   end
 end
 
-
 # down here run the program only if this
 # script is run from the command line
-if __FILE__ == $0
+if $PROGRAM_NAME == __FILE__
   tic = TicTacToe.new
   tic.game.play_turn
   while tic.keep_playing

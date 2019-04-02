@@ -70,7 +70,9 @@ class Game
   end
 
   def end_game?
-    game_won? || game_draw?
+    return true if game_won? || game_draw?
+
+    false
   end
 
   def print_game_result

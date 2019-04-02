@@ -93,8 +93,7 @@ describe Game do
       sym = 'X'
       allow(game).to receive(:pos_checker).with(position).and_return(true)
       allow(game.board).to receive(:set_cell).with(position, sym)
-      # game.board.set_cell(position, sym)
-      # expect(game.board).to have_received(:set_cell).with(position, sym).once
+      allow(game.board).to receive(:get_cell).with(position).and_return(sym)
       expect(game.board.get_cell(position)).to eq(sym)
     end
   end

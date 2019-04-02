@@ -3,8 +3,6 @@ require_relative 'board'
 
 # game class
 class Game
-  WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
-                         [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
   attr_accessor :board, :st_player, :nd_player, :current_player
   def initialize
     @board = Board.new
@@ -35,12 +33,7 @@ class Game
   end
 
   def game_won?
-    WINNING_COMBINATION.each do |item|
-      return true if @board.get_cell(item[0]) == @board.get_cell(item[1]) &&
-                     @board.get_cell(item[1]) == @board.get_cell(item[2]) &&
-                     !@board.cell_valid?(item[0])
-    end
-    false
+    board.horizontal_match || board.vertical_match || board.diagonal_match
   end
 
   def swap_players

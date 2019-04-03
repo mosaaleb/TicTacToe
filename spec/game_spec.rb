@@ -50,36 +50,31 @@ describe Game do
       expect(@game.current_player).to eq(@game.nd_player)
     end
   end
-
   describe '#end_game?' do
-    context '#end_game' do
-      it 'returns true if game_won? is true' do
-        allow(@game).to receive(:game_won?).and_return(true)
-        expect(@game.end_game?).to eq(true)
-      end
-      it 'returns true if game_draw? is true' do
-        allow(@game).to receive(:game_draw?).and_return(true)
-        expect(@game.end_game?).to eq(true)
-      end
-      it 'returns false if game_draw? and game_won? are both false' do
-        allow(@game).to receive(:game_won?).and_return(false)
-        expect(@game.end_game?).to eq(false)
-      end
+    it 'returns true if game_won? is true' do
+      allow(@game).to receive(:game_won?).and_return(true)
+      expect(@game.end_game?).to eq(true)
+    end
+    it 'returns true if game_draw? is true' do
+      allow(@game).to receive(:game_draw?).and_return(true)
+      expect(@game.end_game?).to eq(true)
+    end
+    it 'returns false if game_draw? and game_won? are both false' do
+      allow(@game).to receive(:game_won?).and_return(false)
+      expect(@game.end_game?).to eq(false)
     end
   end
 
   describe '#game_draw?' do
-    context 'should return boolean if board full and game not won' do
-      it 'returns false when either condition is false' do
-        allow(@game.board).to receive(:board_full?).and_return(false)
-        allow(@game).to receive(:game_won?).and_return(true)
-        expect(@game.game_draw?).to eq(false)
-      end
-      it 'returns true when both conditions are true' do
-        allow(@game.board).to receive(:board_full?).and_return(true)
-        allow(@game).to receive(:game_won?).and_return(false)
-        expect(@game.game_draw?).to eq(true)
-      end
+    it 'returns false when either condition is false' do
+      allow(@game.board).to receive(:board_full?).and_return(false)
+      allow(@game).to receive(:game_won?).and_return(true)
+      expect(@game.game_draw?).to eq(false)
+    end
+    it 'returns true when both conditions are true' do
+      allow(@game.board).to receive(:board_full?).and_return(true)
+      allow(@game).to receive(:game_won?).and_return(false)
+      expect(@game.game_draw?).to eq(true)
     end
   end
 
@@ -96,9 +91,8 @@ describe Game do
 
   describe '#pos_checker' do
     it 'checks if position is valid and returns it if true' do
-      position = 0
-      allow(@game.board).to receive(:cell_valid?).with(position).and_return(true)
-      expect(@game.pos_checker(position)).to eq(position)
+      allow(@game.board).to receive(:cell_valid?).with(0).and_return(true)
+      expect(@game.pos_checker(0)).to eq(0)
     end
   end
 end

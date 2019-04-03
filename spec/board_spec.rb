@@ -1,7 +1,7 @@
 require './lib/tic_tac_toe/board'
 
 describe Board do
-  describe '#initialize' do
+  describe '#initialize board' do
     board = Board.new
     it 'creates an instance of board class with new array' do
       expect(board.grid).to eq(Array.new(9))

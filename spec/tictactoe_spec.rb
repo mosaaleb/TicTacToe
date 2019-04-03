@@ -1,7 +1,7 @@
 require './lib/tic_tac_toe'
 
 describe TicTacToe do
-  describe '#initialize' do
+  describe '#initialize tictactoe' do
     let(:test_game) { described_class.new }
     it 'creates an instance game of a game, keep_playing and turns variables' do
       expect(test_game.keep_playing).to eq(true)

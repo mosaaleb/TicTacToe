@@ -8,7 +8,6 @@ class Game
     @board = Board.new
     @turns = 0
     @current_player = ''
-    #setup_players
   end
 
   def setup_players

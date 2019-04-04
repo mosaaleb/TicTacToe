@@ -26,33 +26,13 @@ describe Game do
     end
   end
 
-  # describe '#winner_player' do
-  #   @player1 = Player.new('duck')
-  #   @player2 = Player.new('bunny')
-  #   context 'flksd' do
-  #     let(:current_player) { Player.new(' ') }
-  #     it 'should return the first player name' do
-  #       @current_player = @player2
-  #       expect(@game.winner_player).to eq(@player2.name)
-  #     end
-  #     it 'should return the second player name' do
-  #       @current_player = @player1
-  #       expect(@game.winner_player).to eq(@player1.name)
-  #     end
-  #   end
-  # end
-
   describe '#winner_player' do
-    context 'shit' do
-      dbl = double {  }
-      @st_player = Player.new('duck')
-      @nd_player = Player.new('bunny')
-      @current = @st_player
+    context 'should return winner based on assigned current player' do
       it 'should return the first player name' do
-        # @game.current_player = @player1
-        # expect(@game.winner_player).to eq(@player1.name)
-        @game.current = @st_player
-        expect(@game.winner_player).to eq(@st_player.name)
+        @st_player = Player.new('duck')
+        @nd_player = Player.new('bunny')
+        @game.current_player = @nd_player
+        expect(@game.winner_player).to eq(@nd_player.name)
       end
     end
   end

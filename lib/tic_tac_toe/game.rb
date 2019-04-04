@@ -7,6 +7,7 @@ class Game
   def initialize
     @board = Board.new
     @turns = 0
+    @current_player = ''
     #setup_players
   end
 

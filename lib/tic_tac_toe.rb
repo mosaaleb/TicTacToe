@@ -21,13 +21,10 @@ class TicTacToe
   end
 end
 
-# down here run the program only if this
-# script is run from the command line
-if $PROGRAM_NAME == __FILE__
-  tic = TicTacToe.new
-  tic.game.play_turn
-  while tic.keep_playing
-    puts 'Do you want to play again? Y or N'
-    tic.get_answer(gets.chomp.upcase)
-  end
+tic = TicTacToe.new
+tic.game.setup_players
+tic.game.play_turn
+while tic.keep_playing
+  puts 'Do you want to play again? Y or N'
+  tic.get_answer(gets.chomp.upcase)
 end

@@ -1,4 +1,5 @@
 require './lib/tic_tac_toe/game'
+require './lib/tic_tac_toe/player'
 
 describe Game do
   before(:all) do
@@ -6,19 +7,12 @@ describe Game do
   end
 
   describe '#initialize game' do
-    it 'should initialize players and board' do
-      @game.st_player.name = 'm'
-      @game.nd_player.name = 'k'
+    it 'should initialize board' do
       expect(@game.board).not_to be_nil
-      expect(@game.st_player.name).not_to be_empty
-      expect(@game.nd_player.name).not_to be_empty
     end
   end
 
   describe '#game_won?' do
-    it 'should just return boolean true or false' do
-      expect(@game.game_won?).to eq(true).or eq(false)
-    end
     it 'should return true if a match found' do
       @game.board.set_cell(0, 'X')
       @game.board.set_cell(1, 'X')
@@ -32,14 +26,34 @@ describe Game do
     end
   end
 
+  # describe '#winner_player' do
+  #   @player1 = Player.new('duck')
+  #   @player2 = Player.new('bunny')
+  #   context 'flksd' do
+  #     let(:current_player) { Player.new(' ') }
+  #     it 'should return the first player name' do
+  #       @current_player = @player2
+  #       expect(@game.winner_player).to eq(@player2.name)
+  #     end
+  #     it 'should return the second player name' do
+  #       @current_player = @player1
+  #       expect(@game.winner_player).to eq(@player1.name)
+  #     end
+  #   end
+  # end
+
   describe '#winner_player' do
-    it 'should return the first player name' do
-      @game.current_player = @game.st_player
-      expect(@game.winner_player).to eq(@game.st_player.name)
-    end
-    it 'should return the second player name' do
-      @game.current_player = @game.nd_player
-      expect(@game.winner_player).to eq(@game.nd_player.name)
+    context 'shit' do
+      dbl = double {  }
+      @st_player = Player.new('duck')
+      @nd_player = Player.new('bunny')
+      @current = @st_player
+      it 'should return the first player name' do
+        # @game.current_player = @player1
+        # expect(@game.winner_player).to eq(@player1.name)
+        @game.current = @st_player
+        expect(@game.winner_player).to eq(@st_player.name)
+      end
     end
   end
 

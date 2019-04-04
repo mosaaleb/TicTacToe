@@ -7,7 +7,7 @@ class Game
   def initialize
     @board = Board.new
     @turns = 0
-    setup_players
+    #setup_players
   end
 
   def setup_players
@@ -63,9 +63,7 @@ class Game
   end
 
   def end_game?
-    return true if game_won? || game_draw?
-
-    false
+    game_won? || game_draw?
   end
 
   def print_game_result

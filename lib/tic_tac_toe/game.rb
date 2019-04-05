@@ -56,7 +56,7 @@ class Game
   end
 
   def pos_checker(position)
-    until board.cell_valid?(position - 1) && position != 0 && position < 10
+    until board.cell_valid?(position - 1) && position > 0 && position < 10
       puts "Don't cheat #{current_player.name}"
       puts "#{@current_player.name}, please select a position 1-9"
       position = gets.chomp.to_i

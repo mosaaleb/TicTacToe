@@ -34,9 +34,11 @@ class Board
   end
 
   def horizontal_match
-    3.times do |i|
+    i = 0
+    until i > 6
       return true if @grid[i] == @grid[i + 1] &&
                      @grid[i + 1] == @grid[i + 2] && !@grid[i].nil?
+      i += 3
     end
     false
   end
